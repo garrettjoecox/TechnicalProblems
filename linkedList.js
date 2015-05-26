@@ -45,13 +45,41 @@ LinkedList.prototype.makeNode = function(value){
   return node;
 };
 
+describe('LinkedList', function() {
 
-var list = new LinkedList();
-console.log(list.tail);         //yields 'null'
-list.addToTail(4)
-list.addToTail(5)
-console.log(list.head.value);   //yields '4';
-console.log(list.contains(5));  //yields 'true';
-console.log(list.contains(6));  //yields 'false';
-console.log(list.removeHead()); //yields '4'
-console.log(list.tail.value);   //yields '5';
+  it('should be start with no head/tail', function() {
+    var list = new LinkedList();
+    expect(list.head).to.not.exist;
+    expect(list.tail).to.not.exist;
+  });
+
+  it('should be able to add to tail of list', function() {
+    var list = new LinkedList();
+    list.addToTail('first');
+    list.addToTail('second');
+    expect(list.head.value).to.equal('first');
+    expect(list.tail.value).to.equal('second');
+  });
+
+  it('should be able to remove from the head of the list', function() {
+    var list = new LinkedList();
+    list.addToTail('first');
+    list.addToTail('second');
+    expect(list.head.value).to.equal('first');
+    expect(list.removeHead()).to.equal('first');
+    expect(list.head.value).to.equal('second');
+  });
+
+  it('should be able to search for a target value in the list', function() {
+    var list = new LinkedList();
+    list.addToTail('first');
+    list.addToTail('second');
+    list.addToTail('third');
+    list.addToTail('fourth');
+    list.addToTail('fifth');
+    expect(list.contains('third')).to.be.true;
+    list.removeHead();
+    expect(list.contains('first')).to.be.false;
+  });
+
+});
